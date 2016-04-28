@@ -47,9 +47,7 @@ public class MainGameLoop {
 
 		// *****************************************
 
-		RawModel model = OBJLoader.loadObjModel("tree", loader);
-
-		TexturedModel tree = new TexturedModel(model, new ModelTexture(loader.loadTexture("tree")));
+		TexturedModel tree = new TexturedModel(OBJLoader.loadObjModel("tree", loader), new ModelTexture(loader.loadTexture("tree")));
 		TexturedModel grass = new TexturedModel(OBJLoader.loadObjModel("grassModel", loader), new ModelTexture(loader.loadTexture("grassTexture")));
 		TexturedModel flower = new TexturedModel(OBJLoader.loadObjModel("grassModel", loader), new ModelTexture(loader.loadTexture("flower")));
 
@@ -110,12 +108,12 @@ public class MainGameLoop {
 		entities.add(new Entity(lamp, new Vector3f(370, 4.2f, -300), 0, 0, 0, 1));
 		entities.add(new Entity(lamp, new Vector3f(293, -6.8f, -305), 0, 0, 0, 1));
 
-		MasterRenderer renderer = new MasterRenderer();
+		MasterRenderer renderer = new MasterRenderer(loader);
 
 		RawModel playerModel = OBJLoader.loadObjModel("player", loader);
 		TexturedModel playerTexturedModel = new TexturedModel(playerModel, new ModelTexture(loader.loadTexture("playerTexture")));
 
-		Player player = new Player(playerTexturedModel, new Vector3f(100, 5, -150), 0, 180, 0, 0.6f);
+		Player player = new Player(playerTexturedModel, new Vector3f(153, 5, -274), 0, 100, 0, 0.6f);
 		Camera camera = new Camera(player);
 
 		List<GuiTexture> guis = new ArrayList<GuiTexture>();
