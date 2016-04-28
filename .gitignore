@@ -10,6 +10,7 @@ ehthumbs.db
 bin
 .settings
 .metadata
+.recommenders
 
 # Folder config file
 Desktop.ini
