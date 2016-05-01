@@ -10,7 +10,7 @@ ehthumbs.db
 bin
 .settings
 .metadata
-.recommenders
+*.recommenders*
 
 # Folder config file
 Desktop.ini
@@ -52,4 +52,3 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-.recommenders/caches/identified-project-coordinates.json

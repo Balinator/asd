@@ -25,6 +25,7 @@ import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 import toolbox.MousePicker;
+import water.WaterFrameBuffers;
 import water.WaterRenderer;
 import water.WaterShader;
 import water.WaterTile;
@@ -121,9 +122,9 @@ public class MainGameLoop {
 		entities.add(player);
 		Camera camera = new Camera(player);
 
-		List<GuiTexture> guis = new ArrayList<GuiTexture>();
+		List<GuiTexture> guiTextures = new ArrayList<GuiTexture>();
 		GuiTexture health = new GuiTexture(loader.loadTexture("gui/health"), new Vector2f(-0.74f, 0.925f), new Vector2f(0.25f, 0.25f));
-		guis.add(health);
+		guiTextures.add(health);
 
 		GuiRenderer guiRenderer = new GuiRenderer(loader);
 
@@ -142,6 +143,10 @@ public class MainGameLoop {
 		List<WaterTile> waters = new ArrayList<WaterTile>();
 		waters.add(new WaterTile(75, -75, 0));
 
+		WaterFrameBuffers fbos = new WaterFrameBuffers();
+		GuiTexture gui = new GuiTexture(fbos.getReflectionTexture(), new Vector2f(-0.5f, 0.5f), new Vector2f(0.5f, 0.5f));
+		guiTextures.add(gui);
+
 		// ***************************************
 
 		while (!Display.isCloseRequested()) {
@@ -149,13 +154,18 @@ public class MainGameLoop {
 			camera.move();
 			picker.update();
 
+			fbos.bindReflectionFrameBuffer();
+			renderer.renderScene(entities, terrains, lights, camera);
+			fbos.unbindCurrentFrameBuffer();
+
 			renderer.renderScene(entities, terrains, lights, camera);
 			waterRenderer.render(waters, camera);
-			guiRenderer.render(guis);
+			guiRenderer.render(guiTextures);
 
 			DisplayManager.updateDisplay();
 		}
 
+		fbos.cleanUp();
 		waterShader.cleanUp();
 		guiRenderer.cleanUp();
 		renderer.cleanUp();
