@@ -6,24 +6,23 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
+import toolbox.Maths;
 import entities.Camera;
 import entities.Light;
-import toolbox.Maths;
 
 public class TerrainShader extends ShaderProgram {
 
 	private static final int MAX_LIGHTS = 4;
-
 	private static final String VERTEX_FILE = "src/shaders/terrainVertexShader.glsl";
 	private static final String FRAGMENT_FILE = "src/shaders/terrainFragmentShader.glsl";
 
 	private int location_transformationMatrix;
-	private int location_projectiontionMatrix;
+	private int location_projectionMatrix;
 	private int location_viewMatrix;
 	private int location_lightPosition[];
 	private int location_lightColour[];
-	private int location_attenuation[];
 	private int location_shineDamper;
+	private int location_attenuation[];
 	private int location_reflectivity;
 	private int location_skyColour;
 	private int location_backgroundTexture;
@@ -40,14 +39,14 @@ public class TerrainShader extends ShaderProgram {
 	@Override
 	protected void bindAttributes() {
 		super.bindAttribute(0, "position");
-		super.bindAttribute(1, "textureCoords");
+		super.bindAttribute(1, "textureCoordinates");
 		super.bindAttribute(2, "normal");
 	}
 
 	@Override
 	protected void getAllUniformLocations() {
 		location_transformationMatrix = super.getUniformLocation("transformationMatrix");
-		location_projectiontionMatrix = super.getUniformLocation("projectionMatrix");
+		location_projectionMatrix = super.getUniformLocation("projectionMatrix");
 		location_viewMatrix = super.getUniformLocation("viewMatrix");
 		location_shineDamper = super.getUniformLocation("shineDamper");
 		location_reflectivity = super.getUniformLocation("reflectivity");
@@ -85,7 +84,7 @@ public class TerrainShader extends ShaderProgram {
 		super.loadVector(location_skyColour, new Vector3f(r, g, b));
 	}
 
-	public void loadshineVariable(float damper, float reflectivity) {
+	public void loadShineVariables(float damper, float reflectivity) {
 		super.loadFloat(location_shineDamper, damper);
 		super.loadFloat(location_reflectivity, reflectivity);
 	}
@@ -114,7 +113,7 @@ public class TerrainShader extends ShaderProgram {
 	}
 
 	public void loadProjectionMatrix(Matrix4f projection) {
-		super.loadMatrix(location_projectiontionMatrix, projection);
+		super.loadMatrix(location_projectionMatrix, projection);
 	}
 
 }

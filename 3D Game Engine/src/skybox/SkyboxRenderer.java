@@ -1,15 +1,16 @@
 package skybox;
 
+import models.RawModel;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.util.vector.Matrix4f;
 
-import entities.Camera;
-import models.RawModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
+import entities.Camera;
 
 public class SkyboxRenderer {
 
@@ -57,7 +58,6 @@ public class SkyboxRenderer {
 			SIZE, -SIZE, -SIZE, //
 			-SIZE, -SIZE, SIZE, //
 			SIZE, -SIZE, SIZE //
-
 	};
 
 	private static String[] TEXTURE_FILES = { "right", "left", "top", "bottom", "back", "front" };
@@ -70,10 +70,10 @@ public class SkyboxRenderer {
 	private float time = 0;
 
 	public SkyboxRenderer(Loader loader, Matrix4f projectionMatrix) {
-		this.cube = loader.loadToVAO(VERTICES, 3);
-		this.texture = loader.loadCubeMap(TEXTURE_FILES);
-		this.nightTexture = loader.loadCubeMap(NIGHT_TEXTURE_FILES);
-		this.shader = new SkyboxShader();
+		cube = loader.loadToVAO(VERTICES, 3);
+		texture = loader.loadCubeMap(TEXTURE_FILES);
+		nightTexture = loader.loadCubeMap(NIGHT_TEXTURE_FILES);
+		shader = new SkyboxShader();
 		shader.start();
 		shader.connectTextureUnits();
 		shader.loadProjectionMatrix(projectionMatrix);
@@ -100,11 +100,11 @@ public class SkyboxRenderer {
 		int texture2;
 		float blendFactor;
 		if (time >= 0 && time < 5000) {
-			texture1 = nightTexture;
-			texture2 = nightTexture;
+			texture1 = texture;
+			texture2 = texture;
 			blendFactor = (time - 0) / (5000 - 0);
 		} else if (time >= 5000 && time < 8000) {
-			texture1 = nightTexture;
+			texture1 = texture;
 			texture2 = texture;
 			blendFactor = (time - 5000) / (8000 - 5000);
 		} else if (time >= 8000 && time < 21000) {
@@ -113,7 +113,7 @@ public class SkyboxRenderer {
 			blendFactor = (time - 8000) / (21000 - 8000);
 		} else {
 			texture1 = texture;
-			texture2 = nightTexture;
+			texture2 = texture;
 			blendFactor = (time - 21000) / (24000 - 21000);
 		}
 

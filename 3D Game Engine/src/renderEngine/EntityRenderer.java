@@ -6,6 +6,7 @@ import java.util.Map;
 import models.RawModel;
 import models.TexturedModel;
 
+import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
@@ -52,7 +53,7 @@ public class EntityRenderer {
 			MasterRenderer.disableCulling();
 		}
 		shader.loadFakeLightingVariable(texture.isUseFakeLighting());
-		shader.loadshineVariable(texture.getShineDamper(), texture.getReflectivity());
+		shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, model.getTexture().getID());
 	}

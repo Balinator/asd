@@ -7,9 +7,9 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
+import toolbox.Maths;
 import entities.Camera;
 import entities.Light;
-import toolbox.Maths;
 
 public class StaticShader extends ShaderProgram {
 
@@ -19,7 +19,7 @@ public class StaticShader extends ShaderProgram {
 	private static final String FRAGMENT_FILE = "src/shaders/fragmentShader.glsl";
 
 	private int location_transformationMatrix;
-	private int location_projectiontionMatrix;
+	private int location_projectionMatrix;
 	private int location_viewMatrix;
 	private int location_lightPosition[];
 	private int location_lightColour[];
@@ -39,14 +39,14 @@ public class StaticShader extends ShaderProgram {
 	@Override
 	protected void bindAttributes() {
 		super.bindAttribute(0, "position");
-		super.bindAttribute(1, "textureCoords");
+		super.bindAttribute(1, "textureCoordinates");
 		super.bindAttribute(2, "normal");
 	}
 
 	@Override
 	protected void getAllUniformLocations() {
 		location_transformationMatrix = super.getUniformLocation("transformationMatrix");
-		location_projectiontionMatrix = super.getUniformLocation("projectionMatrix");
+		location_projectionMatrix = super.getUniformLocation("projectionMatrix");
 		location_viewMatrix = super.getUniformLocation("viewMatrix");
 		location_shineDamper = super.getUniformLocation("shineDamper");
 		location_reflectivity = super.getUniformLocation("reflectivity");
@@ -86,7 +86,7 @@ public class StaticShader extends ShaderProgram {
 		super.loadBoolean(location_useFakeLighting, useFake);
 	}
 
-	public void loadshineVariable(float damper, float reflectivity) {
+	public void loadShineVariables(float damper, float reflectivity) {
 		super.loadFloat(location_shineDamper, damper);
 		super.loadFloat(location_reflectivity, reflectivity);
 	}
@@ -115,7 +115,7 @@ public class StaticShader extends ShaderProgram {
 	}
 
 	public void loadProjectionMatrix(Matrix4f projection) {
-		super.loadMatrix(location_projectiontionMatrix, projection);
+		super.loadMatrix(location_projectionMatrix, projection);
 	}
 
 }

@@ -3,10 +3,10 @@ package skybox;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
-import entities.Camera;
 import renderEngine.DisplayManager;
 import shaders.ShaderProgram;
 import toolbox.Maths;
+import entities.Camera;
 
 public class SkyboxShader extends ShaderProgram {
 
@@ -55,6 +55,7 @@ public class SkyboxShader extends ShaderProgram {
 		super.loadFloat(location_blendFactor, blend);
 	}
 
+	@Override
 	protected void getAllUniformLocations() {
 		location_projectionMatrix = super.getUniformLocation("projectionMatrix");
 		location_viewMatrix = super.getUniformLocation("viewMatrix");
@@ -64,6 +65,7 @@ public class SkyboxShader extends ShaderProgram {
 		location_cubeMap2 = super.getUniformLocation("cubeMap2");
 	}
 
+	@Override
 	protected void bindAttributes() {
 		super.bindAttribute(0, "position");
 	}

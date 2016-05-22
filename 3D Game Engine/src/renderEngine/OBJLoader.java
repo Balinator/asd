@@ -19,7 +19,7 @@ public class OBJLoader {
 		try {
 			fr = new FileReader(new File("res/models/" + fileName + ".obj"));
 		} catch (FileNotFoundException e) {
-			System.out.println("Couldn't load file!");
+			System.err.println("Couldn't load file!");
 			e.printStackTrace();
 		}
 		BufferedReader reader = new BufferedReader(fr);
@@ -87,7 +87,6 @@ public class OBJLoader {
 		for (int i = 0; i < indices.size(); i++) {
 			indicesArray[i] = indices.get(i);
 		}
-		
 		return loader.loadToVAO(verticesArray, textureArray, normalsArray, indicesArray);
 
 	}

@@ -2,10 +2,10 @@ package water;
 
 import org.lwjgl.util.vector.Matrix4f;
 
-import entities.Camera;
-import entities.Light;
 import shaders.ShaderProgram;
 import toolbox.Maths;
+import entities.Camera;
+import entities.Light;
 
 public class WaterShader extends ShaderProgram {
 
@@ -21,18 +21,20 @@ public class WaterShader extends ShaderProgram {
 	private int location_moveFactor;
 	private int location_cameraPosition;
 	private int location_normalMap;
-	private int location_lightColour;
 	private int location_lightPosition;
+	private int location_lightColour;
 	private int location_depthMap;
 
 	public WaterShader() {
 		super(VERTEX_FILE, FRAGMENT_FILE);
 	}
 
+	@Override
 	protected void bindAttributes() {
 		bindAttribute(0, "position");
 	}
 
+	@Override
 	protected void getAllUniformLocations() {
 		location_projectionMatrix = getUniformLocation("projectionMatrix");
 		location_viewMatrix = getUniformLocation("viewMatrix");
@@ -43,8 +45,8 @@ public class WaterShader extends ShaderProgram {
 		location_moveFactor = getUniformLocation("moveFactor");
 		location_cameraPosition = getUniformLocation("cameraPosition");
 		location_normalMap = getUniformLocation("normalMap");
-		location_lightColour = getUniformLocation("lightColour");
 		location_lightPosition = getUniformLocation("lightPosition");
+		location_lightColour = getUniformLocation("lightColour");
 		location_depthMap = getUniformLocation("depthMap");
 	}
 
@@ -56,9 +58,9 @@ public class WaterShader extends ShaderProgram {
 		super.loadInt(location_depthMap, 4);
 	}
 
-	public void loadLight(Light sun) {
-		super.loadVector(location_lightColour, sun.getColour());
-		super.loadVector(location_lightPosition, sun.getPosition());
+	public void loadLight(Light light) {
+		super.loadVector(location_lightColour, light.getColour());
+		super.loadVector(location_lightPosition, light.getPosition());
 	}
 
 	public void loadMoveFactor(float factor) {

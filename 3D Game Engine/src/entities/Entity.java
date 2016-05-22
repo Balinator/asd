@@ -14,7 +14,6 @@ public class Entity {
 	private int textureIndex = 0;
 
 	public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
-		super();
 		this.model = model;
 		this.position = position;
 		this.rotX = rotX;
@@ -24,7 +23,6 @@ public class Entity {
 	}
 
 	public Entity(TexturedModel model, int index, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
-		super();
 		this.textureIndex = index;
 		this.model = model;
 		this.position = position;

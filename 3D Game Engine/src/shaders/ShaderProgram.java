@@ -102,11 +102,10 @@ public abstract class ShaderProgram {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = reader.readLine()) != null) {
-				shaderSource.append(line).append("\n");
+				shaderSource.append(line).append("//\n");
 			}
 			reader.close();
 		} catch (IOException e) {
-			System.err.println("Could not read file!");
 			e.printStackTrace();
 			System.exit(-1);
 		}
@@ -115,7 +114,7 @@ public abstract class ShaderProgram {
 		GL20.glCompileShader(shaderID);
 		if (GL20.glGetShaderi(shaderID, GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
 			System.out.println(GL20.glGetShaderInfoLog(shaderID, 500));
-			System.err.println("Could not compile shader.");
+			System.err.println("Could not compile shader!");
 			System.exit(-1);
 		}
 		return shaderID;
