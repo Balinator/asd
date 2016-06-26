@@ -47,9 +47,9 @@ public class MainGameLoop {
 		Loader loader = new Loader();
 		TextMaster.init(loader);
 
-		FontType font = new FontType(loader.loadFontTextureAtlas("segoe"), new File("res/fonts/segoe.fnt"));
-		GUIText text = new GUIText("This is a test text!", 1, font, new Vector2f(0.5f, 0.5f), 0.5f, true);
-		text.setColour(1, 0, 0);
+		FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+		GUIText text = new GUIText("A sample string of text!", 3, font, new Vector2f(0.0f, 0.4f), 1f, true);
+		text.setColour(0.1f, 0.1f, 0.1f);
 
 		// *********TERRAIN TEXTURE STUFF**********
 
@@ -84,32 +84,6 @@ public class MainGameLoop {
 
 		List<Entity> entities = new ArrayList<Entity>();
 		List<Entity> normalMapEntities = new ArrayList<Entity>();
-
-		// ******************NORMAL MAP MODELS************************
-
-		TexturedModel barrelModel = new TexturedModel(NormalMappedObjLoader.loadOBJ("barrel", loader), new ModelTexture(loader.loadTexture("normalMapping/barrel")));
-		barrelModel.getTexture().setNormalMap(loader.loadTexture("normalMapping/barrelNormal"));
-		barrelModel.getTexture().setShineDamper(10);
-		barrelModel.getTexture().setReflectivity(0.5f);
-
-		TexturedModel crateModel = new TexturedModel(NormalMappedObjLoader.loadOBJ("crate", loader), new ModelTexture(loader.loadTexture("normalMapping/crate")));
-		crateModel.getTexture().setNormalMap(loader.loadTexture("normalMapping/crateNormal"));
-		crateModel.getTexture().setShineDamper(10);
-		crateModel.getTexture().setReflectivity(0.5f);
-
-		TexturedModel boulderModel = new TexturedModel(NormalMappedObjLoader.loadOBJ("boulder", loader), new ModelTexture(loader.loadTexture("normalMapping/boulder")));
-		boulderModel.getTexture().setNormalMap(loader.loadTexture("normalMapping/boulderNormal"));
-		boulderModel.getTexture().setShineDamper(10);
-		boulderModel.getTexture().setReflectivity(0.5f);
-
-		// ************ENTITIES*******************
-
-		Entity entity = new Entity(barrelModel, new Vector3f(75, 10, -75), 0, 0, 0, 1f);
-		Entity entity2 = new Entity(boulderModel, new Vector3f(85, 10, -75), 0, 0, 0, 1f);
-		Entity entity3 = new Entity(crateModel, new Vector3f(65, 10, -75), 0, 0, 0, 0.04f);
-		normalMapEntities.add(entity);
-		normalMapEntities.add(entity2);
-		normalMapEntities.add(entity3);
 
 		Random random = new Random(5666778);
 		for (int i = 0; i < 60; i++) {
@@ -170,9 +144,6 @@ public class MainGameLoop {
 			player.move(terrain);
 			camera.move();
 			picker.update();
-			entity.increaseRotation(0, 1, 0);
-			entity2.increaseRotation(0, 1, 0);
-			entity3.increaseRotation(0, 1, 0);
 			GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
 
 			// render reflection teture
